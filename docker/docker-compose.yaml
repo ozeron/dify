@@ -4,8 +4,6 @@ services:
   api:
     image: langgenius/dify-api:0.6.8
     restart: always
-    networks:
-      - captain-overlay-network
     environment:
       # Startup mode, 'api' starts the API server.
       MODE: api
@@ -177,6 +175,7 @@ services:
     # ports:
     #   - "5001:5001"
     networks:
+      - captain-overlay-network
       - ssrf_proxy_network
       - default
 
@@ -185,8 +184,6 @@ services:
   worker:
     image: langgenius/dify-api:0.6.8
     restart: always
-    networks:
-      - captain-overlay-network
     environment:
       CONSOLE_WEB_URL: ''
       # Startup mode, 'worker' starts the Celery worker for processing the queue.
@@ -296,6 +293,7 @@ services:
       # Mount the storage directory to the container, for storing user files.
       - ./volumes/app/storage:/app/api/storage
     networks:
+      - captain-overlay-network
       - ssrf_proxy_network
       - default
 
